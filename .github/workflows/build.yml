@@ -23,6 +23,17 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-
+
       - name: Generate Windows icon
         if: matrix.os == 'windows-latest'
         shell: pwsh
@@ -41,9 +52,11 @@ jobs:
             pkg-config \
             libglib2.0-dev \
             libgtk-3-dev \
-            libwebkit2gtk-4.0-dev \
             libappindicator3-dev \
             librsvg2-dev
+          if ! sudo apt-get install -y libwebkit2gtk-4.1-dev; then
+            sudo apt-get install -y libwebkit2gtk-4.0-dev
+          fi
 
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
