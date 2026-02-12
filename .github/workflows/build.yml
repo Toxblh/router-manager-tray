@@ -20,6 +20,15 @@ jobs:
         with:
           node-version: 20
 
+      - name: Cache rustup
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.rustup
+          key: rustup-${{ runner.os }}-${{ hashFiles('**/rust-toolchain*') }}
+          restore-keys: |
+            rustup-${{ runner.os }}-
+
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
@@ -106,4 +115,6 @@ jobs:
         with:
           name: tauri-bundle-${{ runner.os }}
           path: |
-            router-manager-tray/target/release/bundle/**
+            target/release/bundle/**
+            router-tray/src-tauri/target/release/bundle/**
+            router-manager-tray/router-manager-tray/target/release/bundle/**
