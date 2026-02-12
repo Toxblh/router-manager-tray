@@ -88,3 +88,10 @@ jobs:
         with:
           projectPath: router-tray
           args: --verbose
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tauri-bundle-${{ runner.os }}
+          path: |
+            router-tray/src-tauri/target/release/bundle/**
