@@ -94,4 +94,4 @@ jobs:
         with:
           name: tauri-bundle-${{ runner.os }}
           path: |
-            router-tray/src-tauri/target/release/bundle/**
+            router-manager-tray/target/release/bundle/**
