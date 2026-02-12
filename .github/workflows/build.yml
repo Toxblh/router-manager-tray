@@ -23,6 +23,16 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Generate Windows icon
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          $iconPng = "router-tray/src-tauri/icons/icon.png"
+          $iconIco = "router-tray/src-tauri/icons/icon.ico"
+          if (Test-Path $iconPng) {
+            magick $iconPng -define icon:auto-resize=256,128,64,48,32,16 $iconIco
+          }
+
       - name: Install Linux dependencies
         if: matrix.os == 'ubuntu-latest'
         run: |
