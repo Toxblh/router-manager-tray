@@ -1,0 +1,6 @@
+[workspace]
+members = [
+  "router-core",
+  "router-tray/src-tauri",
+]
+resolver = "2"

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Keenetic Tray Settings</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Router Settings</h1>
+      </header>
+      <main class="layout">
+        <section class="panel list-panel">
+          <div class="panel-header">Routers</div>
+          <ul id="router-list" class="router-list"></ul>
+          <button id="add-btn" class="secondary">Add Router</button>
+        </section>
+        <section class="panel form-panel">
+          <div class="panel-header" id="form-title">Add / Edit Router</div>
+          <form id="router-form">
+            <label>
+              Name
+              <input id="name" name="name" required />
+            </label>
+            <label>
+              Address
+              <input id="address" name="address" required placeholder="192.168.1.1" />
+            </label>
+            <label>
+              Login
+              <input id="login" name="login" required />
+            </label>
+            <label>
+              Password
+              <input id="password" name="password" type="password" required />
+            </label>
+            <div class="actions">
+              <button type="submit" id="save-btn">Save</button>
+              <button type="button" id="delete-btn" class="danger">Delete</button>
+            </div>
+            <div id="status" class="status"></div>
+          </form>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

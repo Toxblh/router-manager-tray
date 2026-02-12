@@ -1,0 +1,35 @@
+{
+  "build": {
+    "beforeDevCommand": "",
+    "beforeBuildCommand": "",
+    "devPath": "../ui",
+    "distDir": "../ui",
+    "withGlobalTauri": true
+  },
+  "package": {
+    "productName": "Keenetic Tray",
+    "version": "0.1.0"
+  },
+  "tauri": {
+    "systemTray": {
+      "iconPath": "icons/icon.png"
+    },
+    "windows": [
+      {
+        "label": "settings",
+        "title": "Router Settings",
+        "width": 520,
+        "height": 640,
+        "resizable": true,
+        "visible": false
+      }
+    ],
+    "bundle": {
+      "identifier": "ru.toxblh.keenetictray",
+      "active": true
+    },
+    "allowlist": {
+      "all": false
+    }
+  }
+}
