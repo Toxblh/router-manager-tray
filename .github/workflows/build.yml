@@ -34,6 +34,27 @@ jobs:
           restore-keys: |
             cargo-${{ runner.os }}-
 
+      - name: Install Npcap SDK
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $sdkRoot = Join-Path $env:RUNNER_TEMP "npcap-sdk"
+          New-Item -ItemType Directory -Force -Path $sdkRoot | Out-Null
+          $zip = Join-Path $env:RUNNER_TEMP "npcap-sdk.zip"
+          $url = "https://npcap.com/dist/npcap-sdk-1.13.zip"
+          Invoke-WebRequest $url -OutFile $zip
+          Expand-Archive $zip -DestinationPath $sdkRoot -Force
+          $packet = Get-ChildItem -Path $sdkRoot -Recurse -Filter Packet.lib | Select-Object -First 1
+          if (-not $packet) { throw "Packet.lib not found in Npcap SDK" }
+          $libDir = $packet.Directory.FullName
+          $include = Get-ChildItem -Path $sdkRoot -Recurse -Filter pcap.h | Select-Object -First 1
+          if ($include) {
+            $includeDir = $include.Directory.FullName
+            Add-Content $env:GITHUB_ENV "INCLUDE=$includeDir;$env:INCLUDE"
+          }
+          Add-Content $env:GITHUB_ENV "LIB=$libDir;$env:LIB"
+
       - name: Generate Windows icon
         if: matrix.os == 'windows-latest'
         shell: pwsh
@@ -52,6 +73,7 @@ jobs:
             pkg-config \
             libglib2.0-dev \
             libgtk-3-dev \
+            libsoup2.4-dev \
             libappindicator3-dev \
             librsvg2-dev
           if ! sudo apt-get install -y libwebkit2gtk-4.1-dev; then
