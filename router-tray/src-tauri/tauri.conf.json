@@ -26,7 +26,11 @@
     ],
     "bundle": {
       "identifier": "ru.toxblh.keenetictray",
-      "active": true
+      "active": true,
+      "icon": [
+        "icons/icon.png",
+        "icons/icon.ico"
+      ]
     },
     "allowlist": {
       "all": false
